@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>http</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <section>
+    <article>
+      <h2>http 协议</h2>
+      <ul>
+        <li>
+          <h3>http 协议的主要特点</h3>
+          <ul>
+            <li>
+              <h4>支持客户/服务器模式</h4>
+              <p>客户端支持web浏览器或其他任何客户端，服务器通常是apache或者iis等</p>
+            </li>
+            <li>
+              <h4>简单快速</h4>
+              <p>客户向服务器请求服务时，只需传送请求方法和路径。每种请求方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快</p>
+            </li>
+            <li>
+              <h4>灵活</h4>
+              <p>HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type（一般情况下的两种 application/xml 和 text/xml）加以标记</p>
+              <ul>
+                <h5>数据类型</h5>
+                <li>
+                  <h6>application/xml</h6>
+                  <p>采用的编码格式是 XML 头中的编码</p>
+                  <p>例如：&lt;?xml version="1.0" encoding="utf-8"?&gt;</p>
+                </li>
+                <li>
+                  <h6>text/xml</h6>
+                  <p>采用 us-ascii 编码</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <h4>无连接（http 协议采用“请求 - 应答”模式，既普通模式）</h4>
+              <p>无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间</p>
+              <p>但也意味着每一次访问都要建立一次连接，效率降低</p>
+            </li>
+            <li>
+              <h4>无状态</h4>
+              <p>HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大</p>
+              <p>另一方面，在服务器不需要先前信息时它的应答就较快。</p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h3>http 报文的组成部分</h3>
+          <ul>
+            <li>
+              <h4>请求报文</h4>
+              <ul>
+                <li>
+                  <h5>请求行</h5>
+                  <p>http 方法，页面地址，http 协议及版本</p>
+                </li>
+                <li>
+                  <h5>请求头</h5>
+                  <p>key value</p>
+                </li>
+                <li>
+                  <h5>空行</h5>
+                  <p>请求头和请求体的分隔</p>
+                </li>
+                <li>
+                  <h5>请求体</h5>
+                  <p>request</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <h4>响应报文</h4>
+              <ul>
+                <li>
+                  <h5>状态行</h5>
+                  <p>http 协议及版本， 状态码</p>
+                </li>
+                <li>
+                  <h5>响应头</h5>
+                  <p>key value</p>
+                </li>
+                <li>
+                  <h5>空行</h5>
+                  <p>响应头和响应体的分隔</p>
+                </li>
+                <li>
+                  <h5>响应体</h5>
+                  <p>response</p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h3>http 方法</h3>
+          <table>
+            <tr>
+              <th>方法</th>
+              <th>描述</th>
+            </tr>
+            <tr>
+              <td>GET：获取资源</td>
+              <td>发送请求来获得服务器上的资源，请求体中不会包含请求数据，请求数据放在协议头中</td>
+            </tr>
+            <tr>
+              <td>HEAD：获得报文首部</td>
+              <td>本质和get一样，但是响应中没有呈现数据，而是http的头信息，主要用来检查资源或超链接的有效性或是否可以可达、检查网页是否被串改或更新，获取头信息等，特别适用在有限的速度和带宽下</td>
+            </tr>
+            <tr>
+              <td>POST：传输资源</td>
+              <td>和get一样很常见，向服务器提交资源让服务器处理，比如提交表单、上传文件等，可能导致建立新的资源或者对原有资源的修改。提交的资源放在请求体中</td>
+            </tr>
+            <tr>
+              <td>PUT：更新资源</td>
+              <td>和post类似，html表单不支持，发送资源与服务器，并存储在服务器指定位置，要求客户端事先知道该位置；比如post是在一个集合上（/province），而put是具体某一个资源上（/province/123）。所以put是安全的，无论请求多少次，都是在123上更改，而post可能请求几次创建了几次资源</td>
+            </tr>
+            <tr>
+              <td>DELETE：删除资源</td>
+              <td>请求服务器删除某资源。和put都具有破坏性，可能被防火墙拦截。如果是https协议，则无需担心</td>
+            </tr>
+          </table>
+        </li>
+        <li>
+          <h3>GET 和 POST 的区别</h3>
+          <table>
+            <tr>
+              <th>GET</th>
+              <th>POST</th>
+            </tr>
+            <tr style="background-color: lightcyan;">
+              <td>在浏览器回退时 GET 请求是无害的</td>
+              <td>POST请求 会再次提交</td>
+            </tr>
+            <tr style="background-color: lightcoral;">
+              <td>GET 产生的 URL 地址可以被收藏</td>
+              <td>POST 不可以</td>
+            </tr>
+            <tr style="background-color: lightcoral;">
+              <td>GET 请求会被浏览器主动缓存</td>
+              <td>POST 不会，除非手动设置 </td>
+            </tr>
+            <tr style="background-color: lightcoral;">
+              <td>GET 请求参数会被完整保留在浏览器历史记录里</td>
+              <td>POST 中的参数不会被保留</td>
+            </tr>
+            <tr style="background-color: lightgoldenrodyellow;">
+              <td>GET 请求只能进行 url 编码</td>
+              <td>POST 支持多种编码方式</td>
+            </tr>
+            <tr style="background-color: lightgoldenrodyellow;">
+              <td>GET 指接受 ASCII 字符的参数类型</td>
+              <td>POST 没有限制</td>
+            </tr>
+            <tr style="background-color: lightgoldenrodyellow;">
+              <td>GET 请求在 URL 中传送的参数是有长度限制的</td>
+              <td>POST 没有限制</td>
+            </tr>
+            <tr style="background-color: lightgrey;">
+              <td>GET 参数通过 URL 传递</td>
+              <td>POST 通过 request body 传递参数</td>
+            </tr>
+            <tr style="background-color: lightgrey;">
+              <td colspan="2">GET 比 POST 更不安全，因为参数直接暴露在 URL 上，所以不能用来传递敏感信息</td>
+            </tr>
+          </table>
+        </li>
+        <li>
+          <h3>http 状态码</h3>
+          <table border="1" cellspacing="2" cellpadding="5">
+            <tr>
+              <td rowspan="3">1xx</td>
+              <td rowspan="3">指示信息</td>
+              <td rowspan="3">请求已接收，继续处理</td>
+            </tr>
+            <tr>
+              <td>100</td>
+              <td>继续。客户端应继续其请求</td>
+            </tr>
+            <tr>
+              <td>101</td>
+              <td>切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议，例如，切换到HTTP的新版本协议</td>
+            </tr>
+            <tr>
+              <td rowspan="3">2xx</td>
+              <td rowspan="3">成功</td>
+              <td rowspan="3">请求已被成功接收</td>
+            </tr>
+            <tr>
+              <td>200</td>
+              <td>客户端请求成功</td>
+            </tr>
+            <tr>
+              <td>206</td>
+              <td>客户发送了一个带有 Range 头的 GET 请求，服务器完成了它</td>
+            </tr>
+            <tr>
+              <td rowspan="4">3xx</td>
+              <td rowspan="4">重定向</td>
+              <td rowspan="4">要完成请求必须进行更进一步的操作</td>
+            </tr>
+            <tr>
+              <td>301</td>
+              <td>永久重定向，所请求的页面已跳转至新的 url</td>
+            </tr>
+            <tr>
+              <td>302</td>
+              <td>临时重定向，所请求的页面已经临时转移至新的 url</td>
+            </tr>
+            <tr>
+              <td>304</td>
+              <td>客户端有缓存的文档并发出了一个条件性的请求，服务器告诉客户，原来缓冲的文档还可以继续使用</td>
+            </tr>
+            <tr>
+              <td rowspan="5">4xx</td>
+              <td rowspan="5">客户端错误</td>
+              <td rowspan="5">请求有语法错误或请求无法实现</td>
+            </tr>
+            <tr>
+              <td>400</td>
+              <td>客户端请求有语法错误，不能被服务器所理解</td>
+            </tr>
+            <tr>
+              <td>401</td>
+              <td>请求未授权</td>
+            </tr>
+            <tr>
+              <td>403</td>
+              <td>被请求的页面禁止访问</td>
+            </tr>
+            <tr>
+              <td>404</td>
+              <td>请求资源不存在</td>
+            </tr>
+            <tr>
+              <td rowspan="3">5xx</td>
+              <td rowspan="3">服务器错误</td>
+              <td rowspan="3">服务器未能实现合法的请求</td>
+            </tr>
+            <tr>
+              <td>500</td>
+              <td>服务器发生不可预期的错误，原来缓冲的文档还可以继续使用</td>
+            </tr>
+            <tr>
+              <td>503</td>
+              <td>请求未完成，服务器临时过载或宕机，一段时间后可能恢复正常</td>
+            </tr>
+          </table>
+        </li>
+        <li>
+          <h3>什么是持久连接（Keep-Alive 模式）</h3>
+          <p>http 1.1 支持持久连接，1.0 版本不支持</p>
+          <p>Keep-Alive 功能避免了普通模式下建立或者重新建立连接，使客户端到服务器端的连接持续有效</p>
+        </li>
+        <li>
+          <h3>什么是管线化机制（持久连接的情况下）</h3>
+          <p>客户端一次性传输多个 GET/HEAD 请求，服务器端将全部响应打包返回</p>
+          <p>一般持久连接：请求1->响应1->请求2->响应2->请求3->响应3->请求4->响应4</p>
+          <p>管线话持久连接：请求1->请求2->请求3->请求4->响应1->响应2->响应3->响应4</p>
+          <ul>
+            <li class="red">管线化机制通过持久连接完成，仅HTTP/1.1支持此技术；</li>
+            <li class="red">只有 GET/HEAD 请求可以进行管线化，POST 有所限制；</li>
+            <li class="red">初次创建连接时不应启动管线化机制，因为服务器端不一定支持 HTTP/1.1 版本的协议；</li>
+            <li>由于上面提到的服务器端的问题，开启管线话很可能并不会带来大幅度的性能提升，而且很多服务器端和代理程序对管线化的支持并不好，因此现代浏览器如 Chrome 和 Firefox 默认未开启管线化支持</li>
+            <li>HTTP/1.1 要求服务器端支持管线化，但并不要求服务器端也对响应进行管线化，只是要求对于管线化的请求不失效即可；</li>
+            <li>管线化不会影响响应到来的顺序</li>
+          </ul>
+        </li>
+      </ul>
+    </article>
+  </section>
+</body>
+</html>

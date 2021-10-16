@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>通信</title>
+</head>
+<body>
+  <section>
+    <article>
+      <h1>通信类</h1>
+      <ul>
+        <li>
+          <h3>什么是同源策略及限制</h3>
+          <ul>
+            <li>
+              <h4>同源策略的概念</h4>
+              <p>限制一个源加载的文档或脚本与来自另一个源的资源进行交互</p>
+              <p>用于隔离潜在恶意文件的关键安全机制</p>
+            </li>
+            <li>
+              <h4>限制</h4>
+              <ul>
+                <li>无法读取 Cookie、LocalStorage、indexDB</li>
+                <li>无法获得 DOM</li>
+                <li>不能发送 AJAX 请求</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h3>前后如何通信</h3>
+          <ul>
+            <li>
+              <h4>Ajax（只能同源）</h4>
+              <code>
+                var xhr = XMLHttpRequest ? new XMLHttpRequest() : new window.ActiveXObject('Microsoft.XMLHTTP')<br>
+                var data = option.data,<br>
+                &nbsp;&nbsp;url = option.url,<br>
+                &nbsp;&nbsp;type = option.type.toUpperCase(),<br>
+                &nbsp;&nbsp;dataArr = []<br>
+                for (var k in data) {<br>
+                &nbsp;dataArr.push(k + '=' + data[k])<br>
+                }<br>
+                if (type === 'GET') {<br>
+                &nbsp;var newUrl = url + '?' + dataArr.join('&')<br>
+                &nbsp;xhr.open(type, newUrl.replace(/\?$/g, ''), true)<br>
+                &nbsp;xhr.send()<br>
+                }<br>
+                if (type === 'POST') {<br>
+                &nbsp;xhr.open(type, url, true)<br>
+                &nbsp;xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')<br>
+                &nbsp;xhr.send(dataArr.join('&'))<br>
+                }<br>
+                xhr.onload = function () {<br>
+                &nbsp;if (xhr.status === 200 || xhr.status === 305) {<br>
+                &nbsp;&nbsp;var res<br>
+                &nbsp;&nbsp;f (option.success && option.success instanceof Function) {<br>
+                &nbsp;&nbsp;&nbsp;res = xhr.responseText<br>
+                &nbsp;&nbsp;&nbsp;if (typeof res === 'string') {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;res = JSON.parse(res)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;option.success.call(xhr, res)<br>
+                &nbsp;&nbsp;&nbsp;<br>
+                &nbsp;&nbsp;}<br>
+                &nbsp; else {<br>
+                &nbsp;&nbsp;if (option.error && option.error instanceof Function) {<br>
+                &nbsp;&nbsp;&nbsp;option.error.call(xhr, res)<br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;}<br>
+                }<br>
+              </code>
+            </li>
+            <li>WebSocket（无限制）</li>
+            <li>CORS（既支持同源也支持跨域）</li>
+          </ul>
+        </li>
+        <li>
+          <h3>跨域通信</h3>
+          <ul>
+            <li>
+              <h4>方式</h4>
+              <ul>
+                <li>
+                  <h5>客户端与服务端跨域</h5>
+                  <p>JSONP（document.createElement('script')，异步加载 src 带有 callback 函数的 script 标签，服务端返回带有结果的 callback(data) 函数后，页面执行 callback）</p>
+                  <p>WebSocket（var Socket = new WebSocket(url, [protocol:ws/wss])能更好的节省服务器资源和带宽，并且能够更实时地进行通讯，但是需要服务端支持 ws/wss 协议）</p>
+                  <p>CORS（利用 fetch web api；服务端设置 access-control-allow-origin）</p>
+                </li>
+                <li>
+                  <h5>网页之间跨域</h5>
+                  <p>Hash（search 不能作为，因为会刷新）</p>
+                  <p>postMessage（window.postMessage() window.addEventListener('message', function(event){event.origin（发送请求网页的 url）/data/source（发送请求的网页）}, false）</p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </article>
+  </section>
+</body>
+</html>

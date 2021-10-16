@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DOM 事件</title>
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      height: 100%;
+      margin: 0;
+    }
+    .layout {
+      display: grid;
+      grid-template-rows: 100%;
+      grid-template-columns: 50% 50%;
+      height: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      overflow: auto;
+    }
+    .content {}
+    .preview {
+      position: sticky;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <section class="layout">
+    <article class="content">
+      <h2>DOM 事件</h2>
+      <ol>
+        <li>
+          <h3>基本概念：DOM 事件的级别</h3>
+          <ul>
+            <li>
+              <h4>DOM0</h4>
+              <p>element.onclick = function (){}</p>
+            </li>
+            <li>
+              <h4>DOM1</h4>
+              <p>暂无关于事件的标准</p>
+            </li>
+            <li>
+              <h4>DOM2</h4>
+              <p>element.addEventListener('click', function (){}, false) （false：冒泡阶段执行；true：捕获阶段产生）</p>
+            </li>
+            <li>
+              <h4>DOM3：增加了事件类型，鼠标事件、键盘事件等）</h4>
+              <p>element.addEventListener('keyup', function (){}, false) （false：冒泡阶段执行；true：捕获阶段产生）</p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h3>DOM 事件模型：捕获/冒泡</h3>
+          <ul>
+            <li>
+              <h4>捕获</h4>
+              <p>当点击一个元素触发事件时，会先从元素的最外层父元素一层一层进入到触发的元素, 从最外层一层一层进入的阶段叫事件捕获阶段</p>
+            </li>
+            <li>
+              <h4>冒泡</h4>
+              <p>触发子元素事件，会依次检查父元素，一层一层网上检查并触发事件，从最里层一层一层往外的阶段叫事件冒泡</p>
+              <p>阻止冒泡：event.stopPropagation()</p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h3>DOM 事件流：捕获 -> 目标阶段 -> 冒泡</h3>
+          <p>浏览器处理用户的操作流程</p>
+        </li>
+        <li>
+          <h3>描述 DOM 事件捕获的具体流程</h3>
+          <ol>
+            <li>
+              <h4>window</h4>
+            </li>
+            <li>
+              <h4>document</h4>
+            </li>
+            <li>
+              <h4>html</h4>
+              <p>document.documentElement</p>
+            </li>
+            <li>
+              <h4>body</h4>
+              <p>document.body</p>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <h3>Event 对象的常见应用</h3>
+          <ul>
+            <li>
+              <h4>event.preventDefault()</h4>
+              <p>阻止默认事件</p>
+            </li>
+            <li>
+              <h4>event.stopPropagaion()</h4>
+              <p>组织冒泡</p>
+            </li>
+            <li>
+              <h4>event.stopImmediatePropagation()</h4>
+              <p>当同一个 dom 注册了多个事件，可以通过这个 event 对象改变事件优先级</p>
+            </li>
+            <li>
+              <h4>event.currentTarget</h4>
+              <p>想同时为各个子元素绑定事件，可以通过统一为父级元素绑定事件，然后通过 currentTarget 来判断触发事件的元素</p>
+            </li>
+            <li>
+              <h4>event.target</h4>
+              <p>当前绑定事件的元素</p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h3>自定义事件</h3>
+          <ol>
+            <li>
+              <h4>申明事件</h4>
+              <p>var newEvent = new Event('custom')</p>
+              or
+              <p>var newEvent = new CustomEvent('custom', {})（可以传参）</p>
+            </li>
+            <li>
+              <h4>绑定事件</h4>
+              <p>element.addEventListener('custom', function (){}, false)</p>
+            </li>
+            <li>
+              <h4>触发事件</h4>
+              <p>element.dispatchEvent('newEvent')</p>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </article>
+    <article class="preview">
+      <ul>
+        <li>
+          <style>
+            #dom {
+              width: 100px;
+              height: 100px;
+              background-color: #f00;
+            }
+          </style>
+          <h3>事件捕获、冒泡流程</h3>
+          <div id="dom">click me</div>
+          <p>捕获：window - document - html - body - dom</p>
+          <p>冒泡：dom - body - html - document - window</p>
+          <script>
+            var dom = document.getElementById('dom')
+            window.addEventListener('click', function () {
+              alert('window click')
+            }, true)
+            document.addEventListener('click', function () {
+              alert('document click')
+            }, true)
+            document.documentElement.addEventListener('click', function () {
+              alert('html click')
+            }, true)
+            document.body.addEventListener('click', function () {
+              alert('body click')
+            }, true)
+            dom.addEventListener('click', function () {
+              alert('dom click')
+            }, true)
+          </script>
+        </li>
+        <li>
+          <style>
+            #custom, #customB {
+              width: 300px;
+              height: 100px;
+              margin-bottom: 10px;
+            }
+            #custom {
+              background-color: green;
+            }
+            #customB {
+              background-color: yellow;
+            }
+          </style>
+          <h3>自定义事件</h3>
+          <div id="custom">Event('str')</div>
+          <div id="customB">CustomEvent('str', {<br>
+            detail: 传参的 key 必须是 detail
+          <br>})</div>
+          <script>
+            var customDom = document.getElementById('custom')
+            var customBDom = document.getElementById('customB')
+            var newEvent
+            customDom.addEventListener('test', function (event) {
+              alert('dispatched event test，接收到的参数：' + event.detail)
+            }, true)
+            customDom.onmouseenter = function () {
+              newEvent = new Event('test')
+              customDom.dispatchEvent(newEvent)
+            }
+            customBDom.onmouseenter = function () {
+              newEvent = new CustomEvent('test', {
+                detail: '传参的 key 必须是 detail'
+              })
+              customDom.dispatchEvent(newEvent)
+            }
+          </script>
+        </li>
+      </ul>
+    </article>
+  </section>
+</body>
+</html>

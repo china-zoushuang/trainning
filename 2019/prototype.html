@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>prototype</title>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .highLight {
+      color: green;
+      font-size: 29px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <article>
+      <h2>原型链 prototype（对象的继承关系）</h2>
+      <ol>
+        <li>
+          <h3>创建对象的几种方法</h3>
+          <ol>
+            <li>
+              <p>
+                var obj1 = { name: 'obj1' } 或者 var obj1 = new Object({ name: 'obj1' })
+                <button onclick="funcObj1()">obj1</button>
+              </p>
+            </li>
+            <li>
+              <p>
+                var M = function () { this.name = 'obj2' }<br>
+                var obj2 = new M()
+                <button onclick="funcObj2()">obj2</button>
+              </p>
+            </li>
+            <li class="red">
+              <p>
+                var P = { name: 'obj3' }<br>
+                var obj3 = Object.create(P)
+                <button onclick="funcObj3()">obj3</button>
+              </p>
+              <p>obj3 利用 Object.Create 方法根据原型对象 P 创建的空对象实例（obj3.__proto__ === P），所以 obj3 本身不包含数据，而是在它的原型链上</p>
+            </li>
+          </ol>
+          <table border="1" cellpadding="5">
+            <tr>
+              <th>比较</th>
+              <th>new</th>
+              <th>Object.create</th>
+            </tr>
+            <tr>
+              <td>原型链</td>
+              <td>原构造函数prototype属性</td>
+              <td>原构造函数/（对象）本身</td>
+            </tr>
+          </table>
+          <script>
+            function funcObj1 () {
+              var obj1 = { name: 'obj1'}
+              alert('obj1: ' + JSON.stringify(obj1))
+            }
+            function funcObj2 () {
+              var M = function () { this.name = 'obj2' }
+              var obj2 = new M()
+              alert('obj2: ' + JSON.stringify(obj2))
+            }
+            function funcObj3 () {
+              var P = { name: 'obj3' }
+              var obj3 = Object.create(P)
+              console.log(P)
+              alert('obj3: ' + JSON.stringify(obj3) + '\n obj3.name: ' + JSON.stringify(obj3.name))
+            }
+          </script>
+        </li>
+        <li>
+          <h3>
+            原型、构造函数（被 new 操作的函数）、实例（new 一个函数所得）、原型链（一个实例通过 __proto__ 往上找构造自己的原型对象，直到 Object.prototype）
+          </h3>
+          <p class="red">
+            只有对象类型才有 prototype<br>
+            只有实例才有 __proto__
+          </p>
+          <p class="blue">var Array = function () {}</p>
+          <p class="orange">∵ Array.__proto__ === Function.prototype</p>
+          <p class="orange">又∵ typeof function === 'object'</p>
+          <p class="orange">∴ Array.prototype.__proto__ === Object.prototype</p>
+          <p class="blue">var arr = new Array()</p>
+          <p class="green">∵ arr.__proto__ === Array.prototype</p>
+          <p class="green">又∵ Array.prototype.constructor === Array</p>
+          <p class="green">∴ arr.__proto__.constructor === Array // 因为层层继承关系，搞不清直接“父亲”，通过 __proto__constructor 来判断实例的真正构造函数</p>
+          <p class="purple">arr.forEach 通过原型链找到 Array.prototype.forEach</p>
+        </li>
+        <li>
+          <h3>instanceof 的原理</h3>
+          arr instanceof Array // true 因为 arr 是通过 var arr = new Array() 产生的实例
+        </li>
+        <li>
+          <h3>new 运算符原理</h3>
+          <p>
+            <span class="blue">var new = function (func) {</span><br>
+            &nbsp;&nbsp;<span class="blue">var obj = Object.create(func.prototype)</span><span class="grey"> // 继承 func 的原型创建一个新的对象</span><br> 
+            &nbsp;&nbsp;<span class="blue">var run = func.call(obj)</span><span class="grey"> // 执行构造函数获取返回值</span><br>
+            &nbsp;&nbsp;<span class="blue">if (typeof run === 'object') {</span><span class="grey"> // 判断返回值的类型</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">return run</span><span class="grey"> // 如果构造函数返回值为对象则 new 返回的是 构造函数的返回值</span><br>
+            &nbsp;&nbsp;<span class="blue">} else {</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">return obj</span><span class="grey"> // 不是的话则返回创建的新对象</span><br>
+            &nbsp;&nbsp;<span class="blue">}<br>
+            }<br>
+          </p>
+        </li>
+      </ol>
+    </article>
+  </section>
+</body>
+</html>

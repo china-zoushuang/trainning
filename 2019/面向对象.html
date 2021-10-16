@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>面向对象</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <section>
+    <article>
+      <h2>面向对象</h2>
+      <ul>
+        <li>
+          <h3>类与实例</h3>
+          <ol>
+            <li>
+              <h4>类的声明</h4>
+              <ul>
+                <li>
+                  <h5>传统方式：利用构造函数模拟一个类</h5>
+                  <code>
+                    function Animal () {<br>
+                    &nbsp;this.name = 'animal' // 通过 this 表明这是一个构造函数<br>
+                    }
+                  </code>
+                </li>
+                <li>
+                  <h5>ES6 方式 class</h5>
+                  <code>
+                    class Animal2 { // 类名<br>
+                    &nbsp;constructor () { // 构造函数<br>
+                    &nbsp;&nbsp;this.name = 'animal2'<br>
+                    &nbsp;}<br>
+                    }
+                  </code>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <h4>生成实例</h4>
+              <code>
+                var instance =  new Animal // 如果构造函数没有参数的话，可以省去括号<br>
+                var instance2 = new Animal2() 
+              </code>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <h3>类与继承（继承的本质就是原型链 __proto__）</h3>
+          <ol>
+            <li>
+              <h4>如何实现继承</h4>
+              <ol>
+                <li>
+                  <h5>借助构造函数实现继承</h5>
+                  <p><strong>原理：</strong>通过 Parent.call(this) 或者 apply 来实现部分继承</p>
+                  <code>
+                    function Parent () {<br>
+                      &nbsp;this.name = 'parent'<br>
+                    }<br>
+                    function Child () {<br>
+                    &nbsp;// 实现继承的主要原理<br>
+                    &nbsp;<span class="red">Parent.call(this)</span> // call, apply 改变函数运行的上下文（this 的指向），把 Parent 的 this 指向 Child 的 this<br>
+                    &nbsp;this.type = 'child'<br>
+                    }<br>
+                    var instance = new Child // { name: 'parent', type: 'child' }
+                  </code>
+                  <p class="red"><strong>缺点：</strong>只能部分继承，Parent 原型对象上的属性无法通过构造函数的方式被继承</p>
+                  <code>
+                    Parent.prototype.say = function () {}<br>
+                    var instance = new Child()
+                    instance.say() // Uncaught TypeError: (intermediate value).say is not a function
+                  </code>
+                </li>
+                <li>
+                  <h5>借助原型链实现继承</h5>
+                  <p><strong>原理：</strong>将 Parent 实例赋值给 Child 的 prototype 属性，Child.prototype = new Parent()</p>
+                  <code>
+                    function Parent () {<br>
+                    &nbsp;this.name = 'parent'<br>
+                    }<br>
+                    function Child () {<br>
+                    &nbsp;this.type = 'child'<br>
+                    }<br>
+                    Parent.prototype.say = function () { console.log('hello') }<br>
+                    // 实现继承的主要原理<br>
+                    <span class="red">Child.prototype = new Parent()</span> // 赋值 Parent 实例<br>
+                    var instance = new Child()<br>
+                    instance.__proto__ === Child.prototype // true<br>
+                    instance.say() // hello
+                  </code>
+                  <p class="red"><strong>缺点：</strong>实例共享引用类型</p>
+                  <code>
+                    function Parent () {<br>
+                    &nbsp;this.arr = [1,2,3]<br>
+                    }<br>
+                    var instance1 = new Child()<br>
+                    var instance2 = new Child()<br>
+                    ∵ instance1._proto__ === instance2._proto__<br>
+                    ∴ instance1.arr.push(4) // instance1.arr = [1,2,3,4], instance2.arr = [1,2,3,4]
+                  </code>
+                </li>
+                <li>
+                  <h5>组合式方法继承一</h5>
+                  <p>解决了共享引用类型的问题</p>
+                  <code>
+                    function Parent () {<br>
+                    &nbsp;this.name = 'parent'<br>
+                    }<br>
+                    function Child () {<br>
+                    &nbsp;<span class="red">Parent.call(this)</span><br>
+                    &nbsp;this.type = 'child'<br>
+                    }<br>
+                    <span class="red">Child.prototype = Parent.prototype</span> // Parent.prototype 代替 new Parent()，没必要多次重复执行 Parent()
+                  </code>
+                  <p>缺点：无法判断由 Child 生成的实例的 constructor</p>
+                  <code>
+                    var instance = new Child()<br>
+                    instance instanceof Child // true<br>
+                    instance instanceof Parent // true<br>
+                    instance.constructor === Parent // true<br>
+                  </code>
+                </li>
+                <li>
+                  <h5>组合式方法继承二</h5>
+                  <p>解决了无法判断 constructor 的问题</p>
+                  <code>
+                    function Parent () {<br>
+                    &nbsp;this.name = 'parent'<br>
+                    }<br>
+                    function Child () {<br>
+                    &nbsp;Parent.call(this)<br>
+                    &nbsp;this.type = 'child'<br>
+                    }<br>
+                    Child.prototype = <span class="red">Object.Create(Parent.prototype)</span><br>
+                    <span class="red">Child.prototype.constructor = Child</span>
+                  </code>
+                  <p>缺点：无法判断由 Child 生成的实例的 constructor</p>
+                  <code>
+                    var instance = new Child()<br>
+                    instance instanceof Child // true<br>
+                    instance instanceof Parent // false<br>
+                    instance.constructor === Child // true<br>
+                    instance.constructor === Parent // false<br>
+                  </code>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ul>
+    </article>
+  </section>
+</body>
+</html>

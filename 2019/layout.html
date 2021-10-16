@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>layout</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .layout {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <section class="layout float">
+    <style>
+      .layout.float div {
+        min-height: 100px;
+      }
+      .layout.float .left {
+        float: left;
+        width: 300px;
+        background-color: red;
+      }
+      .layout.float .right {
+        float: right;
+        width: 300px;
+        background-color: green;
+      }
+      .layout.float .center {
+        background-color: yellow;
+        /* bfc 清除浮动 */
+        overflow: hidden;
+      }
+    </style>
+    <article class="left-right-center">
+      <div class="left"></div>
+      <div class="right"></div>
+      <div class="center">
+        <h1>float</h1>
+        <h2>1、attention: the dom of center should be written after right when use 'float'</h2>
+        <h2>2、BFC 块级格式化内容 消除浮动，为当前元素增加overflow: hidden;（非visible的任何样式）</h2>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+      </div>
+    </article>
+  </section>
+  <section class="layout absolute">
+    <style>
+      .layout.absolute {
+        position: relative;
+        height: 200px;
+      }
+      .layout.absolute div {
+        min-height: 100px;
+      }
+      .layout.absolute .left-center-right div {
+        position: absolute;
+      }
+      .layout.absolute .left {
+        left: 0;
+        width: 300px;
+        background-color: red;
+      }
+      .layout.absolute .center {
+        left: 300px;
+        right: 300px;
+        background-color: yellow;
+      }
+      .layout.absolute .right {
+        right: 0;
+        width: 300px;
+        background-color: green;
+      }
+    </style>
+    <article class="left-center-right">
+      <div class="left"></div>
+      <div class="center">
+        <h1>absolute</h1>
+        <h2>1、没办法撑开父级</h2>
+        <h2>2、同级的高度无法自适应</h2>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+      </div>
+      <div class="right"></div>
+    </article>
+  </section>
+  <section class="layout flex">
+    <style>
+      .layout.flex div {
+        min-height: 100px;
+      }
+      .layout.flex .left-center-right {
+        display: flex;
+      }
+      .layout.flex .left {
+        width: 300px;
+        background-color: red;
+      }
+      .layout.flex .center {
+        flex: 1;
+        background-color: yellow;
+      }
+      .layout.flex .right {
+        width: 300px;
+        background-color: green;
+      }
+    </style>
+    <article class="left-center-right">
+      <div class="left"></div>
+      <div class="center">
+        <h1>flex</h1>
+        <h2>1、当前最适用的方式 flex，虽然相比grid没那么简单灵活，但是兼容性高</h2>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+      </div>
+      <div class="right"></div>
+    </article>
+  </section>
+  <section class="layout table">
+    <style>
+      .layout.table div {
+        min-height: 100px;
+      }
+      .layout.table .left-center-right {
+        display: table;
+        width: 100%;
+      }
+      .layout.table .left {
+        display: table-cell;
+        width: 300px;
+        background-color: red;
+      }
+      .layout.table .center {
+        display: table-cell;
+        background-color: yellow;
+      }
+      .layout.table .right {
+        display: table-cell;
+        width: 300px;
+        background-color: green;
+      }
+    </style>
+    <article class="left-center-right">
+      <div class="left"></div>
+      <div class="center">
+        <h1>table</h1>
+        <p>wrapper dispaly is 'table'</p>
+        <p>element display is 'table-cell'</p>
+        <p>wrapper should set width</p>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+        <p>..</p>
+      </div>
+      <div class="right"></div>
+    </article>
+  </section>
+  <section class="layout grid">
+    <style>
+      .layout.grid div {
+        min-height: 100px;
+      }
+      .layout.grid .left-center-right {
+        display: grid;
+        width: 100%;
+        grid-template-rows: auto;
+        grid-template-columns: 300px auto 300px;
+      }
+      .layout.grid .left {
+        background-color: red;
+      }
+      .layout.grid .center {
+        background-color: yellow;
+      }
+      .layout.grid .right {
+        background-color: green;
+      }
+    </style>
+    <article class="left-center-right">
+      <div class="left"></div>
+      <div class="center">
+        <h1><a href="http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html">grid</a></h1>
+        <ol>
+          <li>
+            <ul>
+              <strong>grid-template-rows:</strong>
+              <li>100px 100px 100px</li>
+              <li>repeat(3, 100px)</li>
+              <li>repeat(3, 50px 100px 30px)</li>
+              <li>repeat(auto-fill, 100px) // when the width of wrapper is not sure, but the width of cell is fixed, can set auto-fill</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <strong>grid-template-columns:</strong>
+              <li>100px 100px 100px</li>
+              <li>repeat(3, 100px)</li>
+              <li>repeat(3, 50px 100px 30px)</li>
+              <li>repeat(auto-fill, 100px) // when the width of wrapper is not sure, but the width of cell is fixed, can set auto-fill</li>
+            </ul>
+          </li>
+          <li>
+            <strong>grid-template-areas, grid-area // 同时出现，grid-area 用来声明，grid-template-areas 用来定义</strong>
+          </li>
+          <li>
+            <strong>grid-gap</strong>
+          </li>
+          <li>
+            <strong>grid-auto-flow: column / row dense // 排列顺序，dense is 紧密不留空</strong>
+          </li>
+        </ol>
+      </div>
+      <div class="right"></div>
+    </article>
+  </section>
+  <section class="layout grid-classical">
+    <style>
+      .layout.grid-classical .header-nav-main-footer {
+        display: grid;
+        grid-template-rows: 50px auto 50px;
+        grid-template-columns: 100px auto;
+        grid-template-areas: "header header" "nav main" "footer footer";
+        width: 300px;
+        height: 300px;
+      }
+      .header {
+        grid-area: header;
+        background-color: red;
+      }
+      .nav {
+        grid-area: nav;
+        background-color: orange;
+      }
+      .main {
+        grid-area: main;
+        background-color: green;
+      }
+      .footer {
+        grid-area: footer;
+        background-color: blue;
+      }
+    </style>
+    <article class="header-nav-main-footer">
+      <div class="header">header</div>
+      <div class="nav">nav</div>
+      <div class="main">main</div>
+      <div class="footer">footer</div>
+    </article>
+  </section>
+</body>
+</html>

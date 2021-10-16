@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>cssbox</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <section class="mode">
+    <style>
+      .mode {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 33.33% 33.33% 33.33%;
+      }
+      .mode .box {
+        position: relative;
+      }
+      .mode .box div {
+        position: relative;
+        padding: 40px;
+      }
+      .mode .box .margin {
+        background-color: orange;
+      }
+      .mode .box .border {
+        background-color: lightslategray;
+      }
+      .mode .box .padding {
+        background-color: green;
+      }
+      .mode .box .content {
+        background-color: yellow;
+      }
+      .mode .box div span {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+      }
+      .mode .box .guide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+      }
+      #standard:checked ~ .margin .border .guide.standard::before,
+      #standard:checked ~ .margin .border .guide.standard::after {
+        display: block;
+      }
+      #ie:checked ~ .margin .border .guide.ie::before,
+      #ie:checked ~ .margin .border .guide.ie::after {
+        display: block;
+      }
+      .mode .box .guide.standard::before,
+      .mode .box .guide.standard::after,
+      .mode .box .guide.ie::before,
+      .mode .box .guide.ie::after {
+        position: absolute;
+        display: none;
+      }
+      .mode .box .guide.standard::before,
+      .mode .box .guide.ie::before {
+        content: 'height';
+        top: -2px;
+        height: 100%;
+        border-top: 2px solid #f00;
+        border-bottom: 2px solid #f00;
+        color: #f00;
+      }
+      .mode .box .guide.standard::before {
+        left: -100px;
+        width: calc(100% + 100px);
+        line-height: 80px;
+      }
+      .mode .box .guide.ie::before {
+        left: -50px;
+        width: calc(100% + 50px);
+        line-height: 240px;
+      }
+      .mode .box .guide.standard::after,
+      .mode .box .guide.ie::after {
+        content: 'width';
+        top: -2px;
+        left: -2px;
+        width: 100%;
+        border-left: 2px solid blue;
+        border-right: 2px solid blue;
+        text-align: center;
+        color: blue;
+      }
+      .mode .box .guide.standard::after {
+        height: calc(100% + 100px);
+        line-height: 350px;
+      }
+      .mode .box .guide.ie::after {
+        height: calc(100% + 60px);
+        line-height: 600px;
+      }
+    </style>
+    <article class="box">
+      <input type="radio" name="mode" id="standard" checked>
+      <label for="standard">标准模型</label>
+      <p>以 content 的宽高为目标盒模型宽高</p>
+      <input type="radio" name="mode" id="ie">
+      <label for="ie">IE模型</label>
+      <p>以 border 的宽高为目标盒模型宽高</p>
+      <div class="margin">
+        <span>margin</span>
+        <div class="border">
+          <span>border</span>
+          <div class="guide ie"></div>
+          <div class="padding">
+            <span>padding</span>
+            <div class="content">
+              <span>content</span>
+              <div class="guide standard"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="js">
+      <ul>
+        <h2>js 如何设置获取盒模型的宽和高</h2>
+        <div id="jsRect" style="width: 150px; height: 150px; border: 1px solid #000">
+          style="<br/>width: 150px;<br/>height: 150px;<br/>border: 1px solid #000<br/>"
+        </div>
+        <li id="jsA">
+          <h3>dom.style.width/height</h3>
+          <p>获取dom的内联style属性定义的宽高值</p>
+        </li>
+        <li id="jsB">
+          <h3>dom.currentStyle.width/height</h3>
+          <p>只兼容ie</p>
+        </li>
+        <li id="jsC" class="red">
+          <h3>window.getComputedStyle(dom).width/height</h3>
+          <p>相较于currentStyle兼容性更佳</p>
+        </li>
+        <li id="jsD" class="red">
+          <h3>dom.getBoundingClientRect().width/height</h3>
+          <p>根据 viewport 视窗获取 width、height、top、left</p>
+        </li>
+      </ul>
+      <script>
+        var jsRectDom = document.getElementById('jsRect')
+        var jsADom = document.getElementById('jsA')
+        var jsBDom = document.getElementById('jsB')
+        var jsCDom = document.getElementById('jsC')
+        var jsDDom = document.getElementById('jsD')
+        jsADom.innerHTML += '宽：' + jsRectDom.style.width + '，高：' + jsRectDom.style.height
+        jsBDom.innerHTML += jsRectDom.currentStyle ? ('宽：' + jsRectDom.currentStyle.width + '，高：' + jsRectDom.currentStyle.height) : 'undefined'
+        jsCDom.innerHTML += '宽：' + window.getComputedStyle(jsRectDom).width + '，高：' + window.getComputedStyle(jsRectDom).height
+        jsDDom.innerHTML += '宽：' + jsRectDom.getBoundingClientRect().width + '，高：' + jsRectDom.getBoundingClientRect().height + '<br>'
+        jsDDom.innerHTML += 'top：' + jsRectDom.getBoundingClientRect().top + '，left：' + jsRectDom.getBoundingClientRect().left
+      </script>
+    </article>
+    <article>
+      <ul>
+        <h2>BFC（Block Formatting Content 块级格式化上下文）</h2>
+        <li>
+          <h3>原理（渲染规则）</h3>
+          <ul>
+            <li>防止边距重叠</li>
+            <li>不与浮动的 box 重叠，清除浮动</li>
+            <li>计算高度，浮动元素也参与计算，清除浮动</li>
+            <li>独立的容器，内外元素互不影响</li>
+          </ul>
+        </li>
+        <li>
+          <h3>创建BFC</h3>
+          <ul>
+            <li>postion 不为 static/relative</li>
+            <li>float 不为 none</li>
+            <li>display: inline-block / table-cell</li>
+            <li>overflow 不为 visible</li>
+          </ul>
+        </li>
+        <li>
+          <h3>应用实例</h3>
+          <ol>
+            <li>
+              <h4>防止 margin 重叠</h4>
+              <p>为目标元素添加父级元素，并为父级元素添加 overflow: auto（只要非 visible 都可以）属性来创建 BFC</p>
+            </li>
+            <li>
+              <h4>清除浮动</h4>
+              <p>为父级元素添加任意属性创建 BFC：<br>postion 不为 static/relative<br>float 不为 none<br>display: inline-block / table-cell<br>overflow 不为 visible</p>
+            </li>
+          </ol>
+        </li>
+      </ul>
+    </article>
+  </section>
+</body>
+</html>
