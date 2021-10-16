@@ -12,8 +12,11 @@
 // });
 // console.log(params);
 
-const tpl = "/user/:name/:age";
-const regStr = tpl.replace(/:(\w+)/g, function (matched, attr) {
-  return "(\\w+)";
-});
-console.log("/user/zoushuang/20".match(new RegExp(regStr)));
+// const tpl = "/user/:name/:age";
+// const regStr = tpl.replace(/:(\w+)/g, function (matched, attr) {
+//   return "(\\w+)";
+// });
+// console.log("/user/zoushuang/20".match(new RegExp(regStr)));
+
+function aa(a, v, c) {}
+console.log(aa.length);

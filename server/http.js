@@ -17,7 +17,10 @@ const server = http.createServer(function (req, res) {
     });
 
     socket.on("end", function (data) {
-      res.end(Buffer.concat(arr).toString());
+      // // end：只接受 string 或 Buffer
+      // res.end(Buffer.concat(arr).toString());
+      // 推荐 send：都可以
+      res.send();
     });
   });
 

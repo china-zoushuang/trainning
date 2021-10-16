@@ -17,15 +17,20 @@ function express() {
     res.end("no match");
   }
   app.requests = [];
-  // app.get = function (pathname, callback) {
-  //   let request = {
-  //     method: "GET",
-  //     pathname,
-  //     callback,
-  //   };
-  //   this.requests.push(request);
-  // };
-  ["GET", "POST", "PUT"].map((method) => {
+  // handler 包含 next 参数
+  app.use = function (pathname, handler) {
+    app.requests.push(handler);
+  }[
+    // app.get = function (pathname, callback) {
+    //   let request = {
+    //     method: "GET",
+    //     pathname,
+    //     callback,
+    //   };
+    //   this.requests.push(request);
+    // };
+    ("GET", "POST", "PUT")
+  ].map((method) => {
     app[item] = function (pathname, callback) {
       let request = {
         method,

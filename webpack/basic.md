@@ -2,7 +2,7 @@
 
 ### 外部
 
-- webpackDevMiddleware // 往 express 中嵌入 webpack 的中间件，实现监听资源变更自动打包，配合 webpack-hot-middleware 实现热加载
+- webpackDevMiddleware // 往 express 中嵌入 webpack 的中间件，实现监听资源并更自动打包，一旦文件改变，middleware 不会请求旧资源，而是延迟请求，等待新的文件编译完成，通过 webpack-hot-middleware 实现热加载
   > 优势：因为 webpackDevMiddleware 是通过内存方式，所以相较于 webpack 的 watch 要编译速度更快
 
 ```javascript
