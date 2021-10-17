@@ -1,8 +1,8 @@
 ## 数据劫持、代理
 
-## 原本用的是 Object.defineProperty
+## vue 2.x 使用 Object.defineProperty
 
-### 缺点：无法监听数组变化、只能劫持对象
+> 缺陷：无法监听数组变化、只能坚挺已有属性
 
 ```js
 Object.defineProperty(target, key, {
@@ -13,7 +13,7 @@ Object.defineProperty(target, key, {
 
 ## vue 3.x 使用 Proxy 代理对象
 
-### Proxy 可以对目标对象的读取、函数调用等操作进行拦截
+> 优势：Proxy 可以对目标对象的读取、函数调用等操作进行拦截
 
 ```js
 function draw() {
