@@ -1,3 +1,15 @@
+# express 只是个框架
+
+## 底层依赖 http
+
+```js
+const http = require("http");
+```
+
+## 实质性是维护一个数组，匹配 method、pathname 再执行对应的回调
+
+---
+
 # http 请求
 
 ## 请求报文格式

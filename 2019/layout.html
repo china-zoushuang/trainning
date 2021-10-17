@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,27 +11,32 @@
       padding: 0;
       margin: 0;
     }
+
     .layout {
       margin-bottom: 10px;
     }
   </style>
 </head>
+
 <body>
   <section class="layout float">
     <style>
       .layout.float div {
         min-height: 100px;
       }
+
       .layout.float .left {
         float: left;
         width: 300px;
         background-color: red;
       }
+
       .layout.float .right {
         float: right;
         width: 300px;
         background-color: green;
       }
+
       .layout.float .center {
         background-color: yellow;
         /* bfc 清除浮动 */
@@ -59,22 +65,27 @@
         position: relative;
         height: 200px;
       }
+
       .layout.absolute div {
         min-height: 100px;
       }
+
       .layout.absolute .left-center-right div {
         position: absolute;
       }
+
       .layout.absolute .left {
         left: 0;
         width: 300px;
         background-color: red;
       }
+
       .layout.absolute .center {
         left: 300px;
         right: 300px;
         background-color: yellow;
       }
+
       .layout.absolute .right {
         right: 0;
         width: 300px;
@@ -100,17 +111,21 @@
       .layout.flex div {
         min-height: 100px;
       }
+
       .layout.flex .left-center-right {
         display: flex;
       }
+
       .layout.flex .left {
         width: 300px;
         background-color: red;
       }
+
       .layout.flex .center {
         flex: 1;
         background-color: yellow;
       }
+
       .layout.flex .right {
         width: 300px;
         background-color: green;
@@ -135,19 +150,23 @@
       .layout.table div {
         min-height: 100px;
       }
+
       .layout.table .left-center-right {
         display: table;
         width: 100%;
       }
+
       .layout.table .left {
         display: table-cell;
         width: 300px;
         background-color: red;
       }
+
       .layout.table .center {
         display: table-cell;
         background-color: yellow;
       }
+
       .layout.table .right {
         display: table-cell;
         width: 300px;
@@ -175,18 +194,22 @@
       .layout.grid div {
         min-height: 100px;
       }
+
       .layout.grid .left-center-right {
         display: grid;
         width: 100%;
         grid-template-rows: auto;
         grid-template-columns: 300px auto 300px;
       }
+
       .layout.grid .left {
         background-color: red;
       }
+
       .layout.grid .center {
         background-color: yellow;
       }
+
       .layout.grid .right {
         background-color: green;
       }
@@ -202,7 +225,8 @@
               <li>100px 100px 100px</li>
               <li>repeat(3, 100px)</li>
               <li>repeat(3, 50px 100px 30px)</li>
-              <li>repeat(auto-fill, 100px) // when the width of wrapper is not sure, but the width of cell is fixed, can set auto-fill</li>
+              <li>repeat(auto-fill, 100px) // when the width of wrapper is not sure, but the width of cell is fixed, can
+                set auto-fill</li>
             </ul>
           </li>
           <li>
@@ -211,7 +235,8 @@
               <li>100px 100px 100px</li>
               <li>repeat(3, 100px)</li>
               <li>repeat(3, 50px 100px 30px)</li>
-              <li>repeat(auto-fill, 100px) // when the width of wrapper is not sure, but the width of cell is fixed, can set auto-fill</li>
+              <li>repeat(auto-fill, 100px) // when the width of wrapper is not sure, but the width of cell is fixed, can
+                set auto-fill</li>
             </ul>
           </li>
           <li>
@@ -234,22 +259,26 @@
         display: grid;
         grid-template-rows: 50px auto 50px;
         grid-template-columns: 100px auto;
-        grid-template-areas: "header header" "nav main" "footer footer";
+        grid-template-areas: "header header""nav main""footer footer";
         width: 300px;
         height: 300px;
       }
+
       .header {
         grid-area: header;
         background-color: red;
       }
+
       .nav {
         grid-area: nav;
         background-color: orange;
       }
+
       .main {
         grid-area: main;
         background-color: green;
       }
+
       .footer {
         grid-area: footer;
         background-color: blue;
@@ -263,4 +292,5 @@
     </article>
   </section>
 </body>
+
 </html>

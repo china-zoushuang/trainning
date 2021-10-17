@@ -20,7 +20,14 @@ module.exports = (env, argv) => ({
 
   /** for dev */
   devtool: "env-source-map", // source-map, cheap-module-source-map
-  // 监听文件变化，自动重新打包
+  // 推荐 eval-source-map
+
+  // source-map // 定位到列
+  // cheap-module-source-map // 定位到行
+  // eval-source-map // 不会生成 .map 文件，直接内嵌源代码中
+
+  // 监听文件变化，自动重新编译
+  // 是整体页面刷新，所以没有 HMR 好
   watch: true,
   watchOptions: {
     poll: 100, // 轮询
@@ -54,6 +61,33 @@ module.exports = (env, argv) => ({
       });
     },
   },
+  /************/
+
+  /** 打包成库文件 */
+  library: "myLibrary",
+  libraryTarget: "var", // var, commonjs, commonjs2, this, windows, global, 默认 var（全局变量）
+  /* libraryTarget
+    - var
+
+    ```js
+    // bundle.js
+    var myLibrary = (function () {})();
+    ```
+
+    - commonjs
+
+    ```js
+    // bundle.js
+    exports["myLibrary"] = (function () {})();
+    ```
+
+    - commonjs2
+
+    ```js
+    // bundle.js
+    module.exports = (function () {})();
+    ```
+  */
   /************/
 
   mode: "development", // production

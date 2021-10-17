@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>通信</title>
 </head>
+
 <body>
   <section>
     <article>
@@ -83,14 +85,17 @@
               <ul>
                 <li>
                   <h5>客户端与服务端跨域</h5>
-                  <p>JSONP（document.createElement('script')，异步加载 src 带有 callback 函数的 script 标签，服务端返回带有结果的 callback(data) 函数后，页面执行 callback）</p>
-                  <p>WebSocket（var Socket = new WebSocket(url, [protocol:ws/wss])能更好的节省服务器资源和带宽，并且能够更实时地进行通讯，但是需要服务端支持 ws/wss 协议）</p>
+                  <p>JSONP（document.createElement('script')，异步加载 src 带有 callback 函数的 script 标签，服务端返回带有结果的 callback(data)
+                    函数后，页面执行 callback）</p>
+                  <p>WebSocket（var Socket = new WebSocket(url, [protocol:ws/wss])能更好的节省服务器资源和带宽，并且能够更实时地进行通讯，但是需要服务端支持
+                    ws/wss 协议）</p>
                   <p>CORS（利用 fetch web api；服务端设置 access-control-allow-origin）</p>
                 </li>
                 <li>
                   <h5>网页之间跨域</h5>
                   <p>Hash（search 不能作为，因为会刷新）</p>
-                  <p>postMessage（window.postMessage() window.addEventListener('message', function(event){event.origin（发送请求网页的 url）/data/source（发送请求的网页）}, false）</p>
+                  <p>postMessage（window.postMessage() window.addEventListener('message',
+                    function(event){event.origin（发送请求网页的 url）/data/source（发送请求的网页）}, false）</p>
                 </li>
               </ul>
             </li>
@@ -100,4 +105,5 @@
     </article>
   </section>
 </body>
+
 </html>

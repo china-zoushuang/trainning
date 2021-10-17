@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +10,12 @@
     html {
       height: 100%;
     }
+
     body {
       height: 100%;
       margin: 0;
     }
+
     .layout {
       display: grid;
       grid-template-rows: 100%;
@@ -22,13 +25,16 @@
       box-sizing: border-box;
       overflow: auto;
     }
+
     .content {}
+
     .preview {
       position: sticky;
       top: 0;
     }
   </style>
 </head>
+
 <body>
   <section class="layout">
     <article class="content">
@@ -173,14 +179,17 @@
         </li>
         <li>
           <style>
-            #custom, #customB {
+            #custom,
+            #customB {
               width: 300px;
               height: 100px;
               margin-bottom: 10px;
             }
+
             #custom {
               background-color: green;
             }
+
             #customB {
               background-color: yellow;
             }
@@ -189,7 +198,8 @@
           <div id="custom">Event('str')</div>
           <div id="customB">CustomEvent('str', {<br>
             detail: 传参的 key 必须是 detail
-          <br>})</div>
+            <br>})
+          </div>
           <script>
             var customDom = document.getElementById('custom')
             var customBDom = document.getElementById('customB')
@@ -213,4 +223,5 @@
     </article>
   </section>
 </body>
+
 </html>

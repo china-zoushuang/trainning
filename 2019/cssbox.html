@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <title>cssbox</title>
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
   <section class="mode">
     <style>
@@ -15,30 +17,38 @@
         grid-template-rows: auto;
         grid-template-columns: 33.33% 33.33% 33.33%;
       }
+
       .mode .box {
         position: relative;
       }
+
       .mode .box div {
         position: relative;
         padding: 40px;
       }
+
       .mode .box .margin {
         background-color: orange;
       }
+
       .mode .box .border {
         background-color: lightslategray;
       }
+
       .mode .box .padding {
         background-color: green;
       }
+
       .mode .box .content {
         background-color: yellow;
       }
+
       .mode .box div span {
         position: absolute;
         top: 5px;
         left: 5px;
       }
+
       .mode .box .guide {
         position: absolute;
         top: 0;
@@ -47,14 +57,17 @@
         height: 100%;
         padding: 0;
       }
-      #standard:checked ~ .margin .border .guide.standard::before,
-      #standard:checked ~ .margin .border .guide.standard::after {
+
+      #standard:checked~.margin .border .guide.standard::before,
+      #standard:checked~.margin .border .guide.standard::after {
         display: block;
       }
-      #ie:checked ~ .margin .border .guide.ie::before,
-      #ie:checked ~ .margin .border .guide.ie::after {
+
+      #ie:checked~.margin .border .guide.ie::before,
+      #ie:checked~.margin .border .guide.ie::after {
         display: block;
       }
+
       .mode .box .guide.standard::before,
       .mode .box .guide.standard::after,
       .mode .box .guide.ie::before,
@@ -62,6 +75,7 @@
         position: absolute;
         display: none;
       }
+
       .mode .box .guide.standard::before,
       .mode .box .guide.ie::before {
         content: 'height';
@@ -71,16 +85,19 @@
         border-bottom: 2px solid #f00;
         color: #f00;
       }
+
       .mode .box .guide.standard::before {
         left: -100px;
         width: calc(100% + 100px);
         line-height: 80px;
       }
+
       .mode .box .guide.ie::before {
         left: -50px;
         width: calc(100% + 50px);
         line-height: 240px;
       }
+
       .mode .box .guide.standard::after,
       .mode .box .guide.ie::after {
         content: 'width';
@@ -92,10 +109,12 @@
         text-align: center;
         color: blue;
       }
+
       .mode .box .guide.standard::after {
         height: calc(100% + 100px);
         line-height: 350px;
       }
+
       .mode .box .guide.ie::after {
         height: calc(100% + 60px);
         line-height: 600px;
@@ -127,7 +146,7 @@
       <ul>
         <h2>js 如何设置获取盒模型的宽和高</h2>
         <div id="jsRect" style="width: 150px; height: 150px; border: 1px solid #000">
-          style="<br/>width: 150px;<br/>height: 150px;<br/>border: 1px solid #000<br/>"
+          style="<br />width: 150px;<br />height: 150px;<br />border: 1px solid #000<br />"
         </div>
         <li id="jsA">
           <h3>dom.style.width/height</h3>
@@ -189,7 +208,8 @@
             </li>
             <li>
               <h4>清除浮动</h4>
-              <p>为父级元素添加任意属性创建 BFC：<br>postion 不为 static/relative<br>float 不为 none<br>display: inline-block / table-cell<br>overflow 不为 visible</p>
+              <p>为父级元素添加任意属性创建 BFC：<br>postion 不为 static/relative<br>float 不为 none<br>display: inline-block /
+                table-cell<br>overflow 不为 visible</p>
             </li>
           </ol>
         </li>
@@ -197,4 +217,5 @@
     </article>
   </section>
 </body>
+
 </html>
