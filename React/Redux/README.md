@@ -1,4 +1,6 @@
-# Redux
+# Redux 状态管理器
+
+## 整个应用仅一个 store 便于数据管理
 
 ## 安全机制
 
@@ -57,12 +59,13 @@ const initState = {
     name: 'zs',
     age: 20
 }
-function reducer (state, action, data) {
-    switch case(action) {
+// 接收的 state 是 oldState，返回 newState
+function reducer (state, action) {
+    switch case(action.type) {
         case 'name':
-            return {...state, name: data}
+            return {...state, name: action.payload}
         case 'age':
-            return {...state, age: data}
+            return {...state, age: action.payload}
         default:
             return state
     }
@@ -100,4 +103,24 @@ let handler = () => {
   });
 };
 store.subscribe(handler);
+```
+
+## Provider 和 connect
+
+```jsx
+// App
+<Provider store={store}>
+  <Child />
+</Provider>
+```
+
+```jsx
+// Child
+class Child extends Component {
+  constructor(props) {
+    super(props);
+    // 因为 connect 了，所以 props 包含 store
+  }
+}
+export default connect(...args)(Child);
 ```

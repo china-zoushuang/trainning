@@ -142,3 +142,8 @@ export default class Father extends Component {
 `卸载组件`
 
 ## componentWillUnmount(){}
+
+```jsx
+import ReactDom from "react-dom";
+ReactDom.unmountComponentAtNode(node); // 会触发 componentWillUnmount
+```
