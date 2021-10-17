@@ -1,5 +1,7 @@
 # MVC (Model View Controller)
 
+Model 和 View 之间通过 Controller 实现数据改变、页面渲染
+
 # jsx
 
 ## babel-preset-react

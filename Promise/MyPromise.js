@@ -59,6 +59,7 @@ class Promise {
   }
 }
 
+// 线性执行函数
 Promise.all = (promises) => {
   return new Promise((resolve, reject) => {
     const results = [];

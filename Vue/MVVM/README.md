@@ -1,3 +1,9 @@
+# MVVM (Model View ViewModel)
+
+> Model 和 View 之间，通过 ViewModel
+
+> ViewModel 不同于 MVC 通过 Controller 操作 dom 元素，性能低，而是将 View 与 Model 之间建立代理订阅发布的联系
+
 ## 数据劫持、代理
 
 ## vue 2.x 使用 Object.defineProperty

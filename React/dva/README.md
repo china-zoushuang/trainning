@@ -44,7 +44,7 @@ app.model({
   },
   // 用来执行副作用操作，例如异步操作
   effects: {
-    // * 是指 generator 构造函数，可以用 yield 异步操作
+    // * 是指 generator 生成器，可以用 yield 异步操作
     *fetchName(action, { call, put }) {
       try {
         let res = yield call(promise);
