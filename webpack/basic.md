@@ -5,7 +5,7 @@
 - webpackDevMiddleware // 往 express 中嵌入 webpack 的中间件，实现监听资源并更自动打包，一旦文件改变，middleware 不会请求旧资源，而是延迟请求，等待新的文件编译完成，通过 webpack-hot-middleware 实现热加载
   > 优势：因为 webpackDevMiddleware 是通过内存方式，所以相较于 webpack 的 watch 要编译速度更快
 
-```javascript
+```js
 const express = require("express");
 const webpack = require("webpack");
 const webpackDevMiddleware = require("webpack-dev-middleware");
@@ -18,7 +18,7 @@ app.listen(3000);
 
 - HtmlWebpackPlugin // 设置 html 模版
 
-```javascript
+```js
 new HtmlWebpackPlugin({
   template: "./public/index.html",
   filename: "login.html",
@@ -38,7 +38,7 @@ new HtmlWebpackPlugin({
 
 - UglyfyjsWebpackPlugin // 压缩 js
 
-```javascript
+```js
 new UglyfyJsWebpackPlugin({
   cache: true, // 是否启用缓存
   sourceMap: true, // 生成资源映射文件，用于调试
@@ -49,7 +49,7 @@ new UglyfyJsWebpackPlugin({
 - OptimizeCssAssetsPlugin // 压缩 css
 - CopyWebpackPlugin // 拷贝资源到指定文件夹中，一般用于将未引用的静态资源拷贝到打包的文件夹中
 
-```javascript
+```js
 new CopyWebpackPlugin({
   from: path.resolve(__dirname, "static"),
   to: path.resolve(__dirname, "dist/static"),
@@ -66,7 +66,7 @@ new CopyWebpackPlugin({
 
 > 弊端：provide 的是局部变量，需要用 expose-loader 将其改编成全局变量，这样依赖其的插件才能正常运行
 
-```javascript
+```js
 webpack.ProviderPlugin({
   _: "lodash",
   $: "jquery",
@@ -75,7 +75,7 @@ webpack.ProviderPlugin({
 
 - webpack.DefinePlugin // 定义全局 **_常量_**
 
-```javascript
+```js
 webpack.DefinePlugin({
   VERSION: 1.0,
   env: process.env.NODE_ENV, // 取值 webpack 配置的 mode
@@ -90,7 +90,7 @@ webpack.DefinePlugin({
 
 - postcss-loader // 处理 css3 属性前缀:-webkit/-moz/-ms
 
-```javascript
+```js
 // 新建 postcss.config.js，由它真正的处理
 const autoprefixer = require("autoprefixer");
 module.exports = {
@@ -114,7 +114,7 @@ last 100 versions
   - babel-preset-react // jsx => ES5
   - babel-plugin-transform-decorators-legacy // 装饰器语法 => ES5
 
-```javascript
+```js
 {
     test: /\.jsx?$/,
     use: [
@@ -149,7 +149,7 @@ last 100 versions
 
 # library
 
-```javascript
+```js
 module.exports = {
   library: "myLibrary",
   libraryTarget: "var", // var, commonjs, commonjs2, this, windows, global, 默认 var（全局变量）
@@ -158,21 +158,21 @@ module.exports = {
 
 - var
 
-```javascript
+```js
 // bundle.js
 var myLibrary = (function () {})();
 ```
 
 - commonjs
 
-```javascript
+```js
 // bundle.js
 exports["myLibrary"] = (function () {})();
 ```
 
 - commonjs2
 
-```javascript
+```js
 // bundle.js
 module.exports = (function () {})();
 ```

@@ -6,7 +6,7 @@
 
 > 将 jsx 语法编译成 React.createElement(obj) 模式
 
-```javascript
+```js
 React.createElement({
     元素标签,
     标签的属性集合，没有属性就是 null,
@@ -31,24 +31,71 @@ root.appendChild(dom)
 
 > 拥有共同父级的基于 context（上下文）
 
+- ### 方法一：createContext
+
+```jsx
+// context.js
+const { Provider, Consumer } = React.createContext();
+export { Provider, Consumer };
+```
+
+```jsx
+// 父组件
+import { Provider } from "./context";
+export default class Father extends Component {
+  constructor() {
+    super();
+    this.state = {
+      money: 100,
+    };
+  }
+  render() {
+    return (
+      <Provider value={{ money: this.state.money }}>
+        <Child />
+      </Provider>
+    );
+  }
+}
+```
+
+```jsx
+// 子组件们
+import { Consumer } from "./context";
+export default class Father extends Component {
+  render() {
+    return (
+      <Consumer>
+        {(value) => {
+          return <div>{value.money}</div>;
+        }}
+      </Consumer>
+    );
+  }
+}
+```
+
+- ### 方法二（老方法）：getChildContext
+  > 缺陷，需要另外引入 prop-types 包
+
 ```jsx
 // 父组件
 export default class Father extends Component {
   // 必须项目
   static childContextTypes = {
-    amount: PropTypes.number,
+    money: PropTypes.number,
     addAmount: PropTypes.function,
   };
   static getChildContext = () => {
     return {
-      amount: this.state.amount,
+      money: this.state.money,
       addAmount: this.addAmount,
     };
   };
   constructor() {
     super();
     this.state = {
-      amount: 100,
+      money: 100,
     };
   }
 }
@@ -58,15 +105,19 @@ export default class Father extends Component {
 // 子组件们
 export default class Father extends Component {
   static contextTypes = {
-    amount: PropTypes.number,
+    money: PropTypes.number,
   };
   render() {
-    return <div>{this.context.amount}</div>;
+    return <div>{this.context.money}</div>;
   }
 }
 ```
 
+## 任意组件
+
 > redux/mobox/dva(connect)
+
+`解决数据单向流动的问题`
 
 # 生命周期
 

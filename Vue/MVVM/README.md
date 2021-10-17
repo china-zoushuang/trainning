@@ -4,7 +4,7 @@
 
 ### 缺点：无法监听数组变化、只能劫持对象
 
-```javascript
+```js
 Object.defineProperty(target, key, {
   set() {},
   get() {},
@@ -15,7 +15,7 @@ Object.defineProperty(target, key, {
 
 ### Proxy 可以对目标对象的读取、函数调用等操作进行拦截
 
-```javascript
+```js
 function draw() {
   console.log("触发试图更新");
 }
@@ -52,7 +52,7 @@ p.name = "zs2";
 
 1. 遍历存取文档碎片
 
-```javascript
+```js
 const fragment = document.createDocumentFragment();
 fragment.appendChild();
 ...
@@ -66,7 +66,7 @@ ele.appendChild(fragment)
 
 定义 getValue, setValue, update
 
-```javascript
+```js
 function ViewModel(data) {
   this.data = data;
   this.nodes = [];

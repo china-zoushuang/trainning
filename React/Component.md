@@ -64,3 +64,31 @@ export default class Banner extends PureComponent {
 ## 双闭合组件
 
 > 可以传子组件，通过 props.children 获取
+
+## 受控组件：直接操作 dom
+
+`ref`
+
+```jsx
+export default class App extends Component {
+  constructor() {
+    super();
+    // 声明 ref
+    this.inputRef = React.createRef();
+  }
+
+  oonSubmit() {
+    // 取值
+    let value = this.inputRef.current.value;
+  }
+
+  render() {
+    // 关联
+    return <input ref={inputRef} />;
+  }
+}
+```
+
+## 非受控组件：更改 state
+
+`this.setState`

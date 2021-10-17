@@ -9,7 +9,7 @@
 
 - DllReferencePlugin // 引用动态连接库
 
-```javascript
+```js
 // webpack.config.js
 const DllPlugin = require('webpack/lib/DllPlugin')
 
@@ -25,7 +25,7 @@ module.exports = (env, argv) => {
 }
 ```
 
-```javascript
+```js
 // webpack.config.dll.js
 const DllPlugin = require('webpack/lib/DllPlugin')
 
@@ -57,7 +57,7 @@ module.exports = (env, argv) => {
 
 - splitChunks
 
-```javascript
+```js
 module.exports = {
   optimization: {
     splitChunks: {
@@ -83,7 +83,7 @@ module.exports = {
 
 > 注意：打包成功后的 commons 的 chunks 需要配合 HtmlWebpackPlugin 的 chunks 配置，这样才能有效的针对性引入所需的 common chunks
 
-```javascript
+```js
 module.exports = {
   // ...
   plugins: [
@@ -101,7 +101,7 @@ module.exports = {
 
 > 优势：减少声明模块次数，少实例函数，更快了
 
-```javascript
+```js
 const ModuleConcatenationPlugin = reuqire(
   "webpack/lib/optimize/ModuleConcatenationPlugin"
 );
@@ -117,7 +117,7 @@ module.exports = {
 
 - import('') // 函数 import ES7 的语法
 
-```javascript
+```js
 let im = import("./hello.js"); // 返回值时 promise
 promise.then((mod) => {
   mod.default(); // 同 ES6 的 export/import

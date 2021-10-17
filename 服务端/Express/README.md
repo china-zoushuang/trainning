@@ -38,6 +38,6 @@
 
 # 访问静态文件
 
-```javascript
+```js
 express.static(绝对路径);
 ```
