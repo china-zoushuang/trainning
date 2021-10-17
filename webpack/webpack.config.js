@@ -63,9 +63,10 @@ module.exports = (env, argv) => ({
   },
   /************/
 
-  /** 打包成库文件 */
+  /** 打包成库文件，加上引用值 var myLibrary = (function(){}) */
   library: "myLibrary",
-  libraryTarget: "var", // var, commonjs, commonjs2, this, windows, global, 默认 var（全局变量）
+  // var, commonjs, commonjs2, this, windows, global, 默认 var（全局变量）
+  libraryTarget: "var",
   /* libraryTarget
     - var
 
