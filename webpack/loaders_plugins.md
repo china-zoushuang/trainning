@@ -1,9 +1,12 @@
 # Plugins
 
+`扩展 webpack，使它更加灵活`
+
 ## 外部
 
-- ### webpackDevMiddleware // 往 express 中嵌入 webpack 的中间件，实现监听资源变更自动打包，配合 webpack-hot-middleware 实现热加载
-  > 优势：因为 webpackDevMiddleware 是通过内存方式，所以相较于 webpack 的 watch 要编译速度更快
+- ### webpackDevMiddleware
+  ` 往 express 中嵌入 webpack 的中间件，实现监听资源变更自动打包，配合 webpack-hot-middleware 实现热加载`
+  > 优势：因为 webpackDevMiddleware 是通过`内存方式`，所以相较于 webpack 的 watch 要编译速度更快
 
 ```js
 const express = require("express");
@@ -16,7 +19,8 @@ app.use(webpackDevMiddleware(compiler));
 app.listen(3000);
 ```
 
-- ### HtmlWebpackPlugin // 设置 html 模版
+- ### HtmlWebpackPlugin
+  `设置 html 模版`
 
 ```js
 new HtmlWebpackPlugin({
@@ -34,9 +38,12 @@ new HtmlWebpackPlugin({
 });
 ```
 
-- ### MiniCssExtractPlugin // 分离 css
+- ### MiniCssExtractPlugin
 
-- ### UglyfyjsWebpackPlugin // 压缩 js
+  `分离 css`
+
+- ### UglyfyjsWebpackPlugin
+  `压缩 js`
 
 ```js
 new UglyfyJsWebpackPlugin({
@@ -46,8 +53,10 @@ new UglyfyJsWebpackPlugin({
 });
 ```
 
-- ### OptimizeCssAssetsPlugin // 压缩 css
-- ### CopyWebpackPlugin // 拷贝资源到指定文件夹中，一般用于将未引用的静态资源拷贝到打包的文件夹中
+- ### OptimizeCssAssetsPlugin
+  `压缩 css`
+- ### CopyWebpackPlugin
+  `拷贝资源到指定文件夹中，一般用于将未引用的静态资源拷贝到打包的文件夹中`
 
 ```js
 new CopyWebpackPlugin({
@@ -91,11 +100,14 @@ webpack.DefinePlugin({
 
 # loaders
 
+`语言翻译器`
+
 - ### less-loader
 
 - ### sass-loader
 
-- ### postcss-loader // 处理 css3 属性前缀:-webkit/-moz/-ms
+- ### postcss-loader
+  `处理 css3 属性前缀:-webkit/-moz/-ms`
 
 ```js
 // 新建 postcss.config.js，由它真正的处理
@@ -113,13 +125,17 @@ Firefox > 20
 last 100 versions
 ```
 
-- ### babel-loader // ES6/ES7/ES8/JSX => ES5
+- ### babel-loader
+
+  `ES6/ES7/ES8/JSX => ES5`
 
   - babel-core
-  - babel-preset-env // ES6 => ES5
-  - babel-preset-stage-0 // 最新语法 => ES5
-  - babel-preset-react // jsx => ES5
-  - babel-plugin-transform-decorators-legacy // 装饰器语法 => ES5
+  - babel-preset-env `ES6 => ES5`
+  - babel-preset-stage-0 `最新语法 => ES5`
+  - babel-preset-react `jsx => ES5`
+  - babel-plugin-transform-decorators-legacy `装饰器语法 => ES5`
+  - babel-plugin-syntax-dynamic-import `语法动态引入`
+  - babel-plugin-transform-runtime `解决 babel 编译过程中引入 helper 和 polyfill 造成一系列问题，例如原型污染`
 
 ```js
 {

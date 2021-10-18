@@ -77,18 +77,18 @@ function reducer (state, action) {
 ```js
 let store = createStore(reducer);
 
-let handler = () => {
+let callback = () => {
   let name = store.getState().name;
   console.log("newName", name);
 };
 
 // 订阅（监听）state
-// 一旦 state 改变，则执行 handler
-store.subscribe(handler);
+// 一旦 state 改变，则执行 callback
+store.subscribe(callback);
 
 // 取消订阅（监听）
-// 因为 subscribe 返回值正式取消订阅（监听）函数
-let unSubscribe = store.subscribe(handler);
+// 因为 subscribe 的返回值是取消订阅（监听）函数
+let unSubscribe = store.subscribe(callback);
 unSubscribe();
 ```
 
@@ -108,6 +108,7 @@ store.subscribe(handler);
 ## Provider 和 connect
 
 ```jsx
+import {Provider} fron 'redux'
 // App
 <Provider store={store}>
   <Child />
@@ -115,6 +116,7 @@ store.subscribe(handler);
 ```
 
 ```jsx
+import {connect} fron 'redux'
 // Child
 class Child extends Component {
   constructor(props) {

@@ -11,7 +11,7 @@ module.exports = (env, argv) => ({
   },
   module: {
     // 指定不需要解析的依赖，加快解析速度
-    noParse: /lodash|jquery/,
+    noParse: /lodash|jquery/, // ladash 和 jquery 中没有依赖项
   },
   externals: {
     jquery: "jquery", // 告知 jquery 是通过外部 cdn 引用的，不要打包，有效的减小包的大小
@@ -96,6 +96,12 @@ module.exports = (env, argv) => ({
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+  },
+  resolve: {
+    alias: {
+      key: "绝对路径",
+    },
+    extensions: [".js", ".ts", ".jsx", ".vue"],
   },
   rules: [
     {

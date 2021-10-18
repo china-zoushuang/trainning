@@ -48,7 +48,7 @@ A.prototype.constructor.call(this, props);
 
 ## PureComponent
 
-> 只包含必要属性，没有其他非必要的属性，主要用于减少非必要的渲染次数，以达到提高性能
+> 只包含必要属性，没有其他非必要的属性，主要用于减少非必要的渲染次数，以提高性能
 
 ```jsx
 export default class Banner extends PureComponent {
