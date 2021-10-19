@@ -20,10 +20,10 @@ new Proxy(
   {
     set(target, key, value) {
       handler(); // 数据变化后的操作
-      return Refledt(target, key, value);
+      return Reflect(target, key, value);
     },
     get(target, key) {
-      return Refledt(target, key);
+      return Reflect(target, key);
     },
   }
 );

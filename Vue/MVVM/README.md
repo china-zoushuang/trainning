@@ -8,7 +8,7 @@
 
 ## vue 2.x 使用 Object.defineProperty
 
-> 缺陷：无法监听数组变化、只能坚挺已有属性
+> 缺陷：无法监听数组变化、只能监听已有属性
 
 ```js
 Object.defineProperty(target, key, {
