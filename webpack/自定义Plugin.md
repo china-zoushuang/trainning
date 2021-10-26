@@ -2,7 +2,7 @@
 
 ### 1. Compiler
 
-### 2. Compilation
+### 2. Compilcation
 
 ---
 
